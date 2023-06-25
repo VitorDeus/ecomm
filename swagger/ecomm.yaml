@@ -1,0 +1,898 @@
+openapi: 3.0.1
+info:
+  title: API Ecomm
+  description: API para controle de categorias.
+  version: 0.0.1
+  contact:
+    name: Suport a Devs
+    email: suport@ecomm.com
+servers:
+- url: http://localhost:3000
+  description: API Ecomm
+paths:
+  /categories:
+    get:
+      tags:
+       - categories
+      summary: Lista todas as categorias
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: intenger
+                    nome:
+                      type: string
+                    status:
+                      type: string
+  /admin/categories:
+    post:
+      security:
+        - auth: []
+      tags:
+       - categories
+      summary: Cria uma categoria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: intenger
+                    nome:
+                      type: string
+                    status:
+                      type: string
+  /categories/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+        type: integer
+      required: true
+    get:
+      tags:
+       - categories
+      summary: Lista uma categoria por id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: intenger
+                    nome:
+                      type: string
+                    status:
+                      type: string
+        404:
+          description: Não existe uma categoria com este id
+          content:
+            application/json:
+            example: "Categoria não encontrada"
+    patch:
+      tags:
+        - categories
+      summary: Edita uma categoria por id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                status:
+                  type: string
+      responses:
+        200:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                type: object
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: intenger
+                      nome:
+                        type: string
+                      status:
+                        type: string
+    delete:
+      tags:
+       - categories
+      summary: Deleta categoria por id
+      responses:
+       204:
+          description: Deletada com sucesso
+  /admin/categories/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    put:
+      security:
+        - auth: []
+      tags:
+        - categories
+      summary: Edita uma categoria por id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                status:
+                  type: string
+      responses:
+        200:
+          description: "Sucesso"
+          content:
+            application/json:
+              schema:
+                type: object
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: intenger
+                      nome:
+                        type: string
+                      status:
+                        type: string
+        404:
+          description: Não existe uma categoria com este id
+          content:
+            application/json:
+            example: "Categoria não encontrada"
+      patch:
+        security:
+        - auth: []
+        tags:
+          - categories
+        summary: Ativa uma Categoria por id
+        responses:
+          200:
+            description: "Sucesso"
+            content:
+              application/json:
+                schema:
+                  type: object
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: intenger
+                        nome:
+                          type: string
+                        status:
+                          type: string
+          404:
+            description: Não existe uma categoria com este id
+            content:
+              application/json:
+              example: "Categoria não encontrada"
+      delete:
+        security:
+        - auth: []
+        tags:
+          - categories
+        summary: Remove uma categoria por id
+        responses:
+          204:
+            description: Deletada com sucesso
+          404:
+            description: Não existe uma categoria com este id
+            content:
+              application/json:
+              example: "Categoria não encontrada"
+  /product: 
+    get:
+      tags:
+       - products
+      summary: Lista todos os produtos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: intenger
+                    nome:
+                      type: string
+                    descricao:
+                      type: string
+                    slug:
+                      type: string
+                    preco_unitario:
+                      type: string
+                    estoque:
+                      type: string
+                    _idCategoria:
+                      type: string
+  /admin/product:
+    post:
+      security:
+        - auth: []
+      tags:
+       - products
+      summary: Cria um produto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                descricao:
+                  type: string
+                slug:
+                  type: string
+                preco_unitario:
+                  type: string
+                estoque:
+                  type: string
+                _idCategoria:
+                  type: string
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: intenger
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  slug:
+                    type: string
+                  preco_unitario:
+                    type: string
+                  estoque:
+                    type: string
+                  _idCategoria:
+                    type: string
+  /product/{id}:
+    parameters:
+      - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+    get:
+      tags:
+       - products
+      summary: Lista um produto por id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: intenger
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  slug:
+                    type: string
+                  preco_unitario:
+                    type: string
+                  estoque:
+                    type: string
+                  _idCategoria:
+                    type: string
+        404:
+            description: Não existe um produto com este id
+            content:
+              application/json:
+              example: "produto não encontrado"
+  /admin/product/{id}:
+    parameters:
+      - name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+    put:
+      security:
+        - auth: []
+      tags:
+       - products
+      summary: Edita um produto por id
+      requestBody:
+        content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    nome:
+                      type: string
+                    descricao:
+                      type: string
+                    slug:
+                      type: string
+                    preco_unitario:
+                      type: string
+                    estoque:
+                      type: string
+                    _idCategoria:
+                      type: string
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: intenger
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  slug:
+                    type: string
+                  preco_unitario:
+                    type: string
+                  estoque:
+                    type: string
+                  _idCategoria:
+                    type: string
+        404:
+            description: Não existe um produto com este id
+            content:
+              application/json:
+              example: "Produto não encontrado"
+    delete:
+      security:
+        - auth: []
+      tags:
+       - products
+      summary: Remove um produto por id
+      responses:
+        204:
+        description: Deletada com sucesso
+        404:
+          description: Não existe um produto com este id
+          content:
+            application/json:
+            example: "Produto não encontrado"
+  /prouct/find/price={price}:
+    get:
+      parameters:
+        - name: price
+          in: path
+          schema:
+            type: number
+          required: true
+      tags:
+        - products
+      summary: Lista produtos por preço
+      responses:
+        200:
+          desciption: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                type: object
+                properties:
+                  id:
+                    type: intenger
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  slug:
+                    type: string
+                  preco_unitario:
+                    type: string
+                  estoque:
+                    type: string
+                  _idCategoria:
+                    type: string
+        404:
+          description: Não existe um produto com este id
+          content:
+            application/json:
+            example: "Produto não encontrado"
+  /prouct/find/categoria={categoria}:
+    get:
+      parameters:
+        - name: categoria
+          in: path
+          schema:
+            type: number
+          required: true
+      tags:
+        - products
+      summary: Lista produtos por categoria
+      responses:
+        200:
+          desciption: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                type: object
+                properties:
+                  id:
+                    type: intenger
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  slug:
+                    type: string
+                  preco_unitario:
+                    type: string
+                  estoque:
+                    type: string
+                  _idCategoria:
+                    type: string
+        404:
+          description: Não existe um produto com este id
+          content:
+            application/json:
+            example: "Produto não encontrado"
+  /prouct/find/estoque={estoque}:
+    get:
+      parameters:
+        - name: estoque
+          in: path
+          schema:
+            type: number
+          required: true
+      tags:
+        - products
+      summary: Lista produtos por estoque
+      responses:
+        200:
+          desciption: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                type: object
+                properties:
+                  id:
+                    type: intenger
+                  nome:
+                    type: string
+                  descricao:
+                    type: string
+                  slug:
+                    type: string
+                  preco_unitario:
+                    type: string
+                  estoque:
+                    type: string
+                  _idCategoria:
+                    type: string
+        404:
+          description: Não existe um produto com este id
+          content:
+            application/json:
+            example: "Produto não encontrado"
+  /user:
+    get:
+      tags:
+        - users
+      summary: Lista todos os usuarios
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    email:
+                      type: string
+                    senha:
+                      type: string
+                    cpf:
+                      type: string
+                    telefone:
+                      type: string
+                    rua:
+                      type: string
+                    numero:
+                      type: string
+                    cep:
+                      type: string
+                    cidade:
+                      type: string
+                    estado:
+                      type: string
+  /admin/user:
+    post:
+      security:
+        - auth: []
+      tags:
+        - users
+      summary: Cria um usuario
+      requestBody:
+        content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  nome:
+                    type: string
+                  email:
+                    type: string
+                  senha:
+                    type: string
+                  cpf:
+                    type: string
+                  telefone:
+                    type: string
+                  rua:
+                    type: string
+                  numero:
+                    type: string
+                  cep:
+                    type: string
+                  cidade:
+                    type: string
+                  estado:
+                    type: string       
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    email:
+                      type: string
+                    senha:
+                      type: string
+                    cpf:
+                      type: string
+                    telefone:
+                      type: string
+                    rua:
+                      type: string
+                    numero:
+                      type: string
+                    cep:
+                      type: string
+                    cidade:
+                      type: string
+                    estado:
+                      type: string
+  /user/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+        - users
+      summary: Lista um usuario por id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    email:
+                      type: string
+                    senha:
+                      type: string
+                    cpf:
+                      type: string
+                    telefone:
+                      type: string
+                    rua:
+                      type: string
+                    numero:
+                      type: string
+                    cep:
+                      type: string
+                    cidade:
+                      type: string
+                    estado:
+                      type: string
+        404:
+          description: Não existe um usuario com este id
+          content:
+            application/json:
+            example: "Usario não encontrado"
+  /admin/user/{id}:
+    parameters:
+      - name:  id
+        in: path
+        schema:
+          type: integer
+        required: true
+    put:
+      security:
+        - auth: []
+      tags:
+        - users
+      summary: Edita um usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+                cpf:
+                  type: string
+                telefone:
+                  type: string
+                rua:
+                  type: string
+                numero:
+                  type: string
+                cep:
+                  type: string
+                cidade:
+                  type: string
+                estado:
+                  type: string
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome:
+                      type: string
+                    email:
+                      type: string
+                    senha:
+                      type: string
+                    cpf:
+                      type: string
+                    telefone:
+                      type: string
+                    rua:
+                      type: string
+                    numero:
+                      type: string
+                    cep:
+                      type: string
+                    cidade:
+                      type: string
+                    estado:
+                      type: string
+        404:
+          description: Não existe um usuario com este id
+          content:
+            application/json:
+            example: "Usario não encontrado"
+    delete:
+      security:
+        - auth: []
+      tags:
+        - users
+      description: Remove um usuario por id
+      responses:
+        204:
+        description: Deletado com sucesso
+        404:
+          description: Não existe um usuario com este id
+          content:
+            application/json:
+            example: "Usario não encontrado"
+  /orders:
+    post:
+      tags:
+       - orders
+      summary: Cria um pedido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _idCliente:
+                  type: integer
+                rua_entrega:
+                  type: string
+                numero_entrega:
+                  type: string
+                complemento_entrega:
+                  type: string
+                cep_entrega:
+                  type: string
+                cidade_entrega:
+                  type: string
+                estado_entrega:
+                  type: string
+                pedido:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _idProduto:
+                        type: integer
+                      quantidade:
+                        type: integer
+                      desconto:
+                        type: number
+                      preco_untiario:
+                      type: number
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+            schema:
+              type: object
+              properties:
+                _idPedido:
+                  type: integer
+                _idCliente:
+                  type: integer
+                rua_entrega:
+                  type: string
+                numero_entrega:
+                  type: string
+                complemento_entrega:
+                  type: string
+                cep_entrega:
+                  type: string
+                cidade_entrega:
+                  type: string
+                estado_entrega:
+                  type: string
+                pedido:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _idProduto:
+                        type: integer
+                      quantidade:
+                        type: integer
+                      desconto:
+                        type: number
+                      preco_untiario:
+                      type: number
+  /orders/{id}:
+    parameters:
+      - name:  id
+        in: path
+        schema:
+          type: integer
+        required: true
+    get:
+      tags:
+       - orders
+      summary: Lista um pedido por id
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+            schema:
+              type: object
+              properties:
+                _idPedido:
+                  type: integer
+                _idCliente:
+                  type: integer
+                rua_entrega:
+                  type: string
+                numero_entrega:
+                  type: string
+                complemento_entrega:
+                  type: string
+                cep_entrega:
+                  type: string
+                cidade_entrega:
+                  type: string
+                estado_entrega:
+                  type: string
+                pedido:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      _idProduto:
+                        type: integer
+                      quantidade:
+                        type: integer
+                      desconto:
+                        type: number
+                      preco_untiario:
+                      type: number
+        404:
+          description: Não existe um pedido com este id
+          content:
+            application/json:
+            example: "Pedido não encontrado"
+components:
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
