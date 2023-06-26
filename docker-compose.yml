@@ -4,7 +4,12 @@ services:
     build: .
     image: ecomm:1.0
     container_name: ecomm
-
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo-ecomm
+    environment:
+      - MONGO_HOST= mongo-ecomm
   mongo-ecomm:
     image: mongo
     container_name: mongo-ecomm
