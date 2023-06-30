@@ -1,1 +1,1 @@
-console.log('Iniciando ecomm');
+// console.log('Iniciando ecomm');
